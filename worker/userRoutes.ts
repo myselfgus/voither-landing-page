@@ -1,9 +1,8 @@
 import { Hono } from "hono";
 import { getAgentByName } from 'agents';
-import { ChatAgent } from './agent';
-import { API_RESPONSES } from './config';
+import { ChatAgent } from './agent';import { API_RESPONSES } from './config';
 import { Env, getAppController, registerSession, unregisterSession } from "./core-utils";
-
+import { imageGenRoutes } from "./imageGen";
 /**
  * DO NOT MODIFY THIS FUNCTION. Only for your reference.
  */
@@ -32,6 +31,8 @@ export function coreRoutes(app: Hono<{ Bindings: Env }>) {
 }
 
 export function userRoutes(app: Hono<{ Bindings: Env }>) {
+    imageGenRoutes(app);
+
     // Add your routes here
     /**
      * List all chat sessions
