@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import { Navbar } from '@/components/Navbar';
 import { StatsGrid } from '@/components/StatsGrid';
 import { AACIEngine } from '@/components/AACIEngine';
 import { QualityBarriers } from '@/components/QualityBarriers';
 import { ProductSuite } from '@/components/ProductSuite';
+import { FloatingChat } from '@/components/FloatingChat';
 import { Button } from '@/components/ui/button';
 import { ChevronRight, Sparkles } from 'lucide-react';
 import '@/lib/i18n';
@@ -28,7 +30,7 @@ export function LandingPage() {
       <section className="relative pt-40 pb-20 md:pt-56 md:pb-32 overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, x: -30 }}
               animate={{ opacity: 1, x: 0 }}
               className="space-y-8"
@@ -44,15 +46,19 @@ export function LandingPage() {
                 {t('hero.subtitle')}
               </p>
               <div className="flex flex-wrap gap-4">
-                <Button size="lg" className="bg-health-dark hover:bg-health-dark/90 text-white rounded-full px-8 py-7 text-lg shadow-xl transition-all hover:scale-105 active:scale-95">
-                  {t('nav.start')} <ChevronRight className="ml-2 h-5 w-5" />
-                </Button>
-                <Button variant="ghost" size="lg" className="rounded-full px-8 py-7 text-lg shadow-neu-soft border border-white hover:bg-white/50">
-                  {t('nav.features')}
-                </Button>
+                <Link to="/medscribe">
+                  <Button size="lg" className="bg-health-dark hover:bg-health-dark/90 text-white rounded-full px-8 py-7 text-lg shadow-xl transition-all hover:scale-105 active:scale-95">
+                    {t('nav.start')} <ChevronRight className="ml-2 h-5 w-5" />
+                  </Button>
+                </Link>
+                <a href="#suite">
+                  <Button variant="ghost" size="lg" className="rounded-full px-8 py-7 text-lg shadow-neu-soft border border-white hover:bg-white/50">
+                    {t('nav.products')}
+                  </Button>
+                </a>
               </div>
             </motion.div>
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               className="relative aspect-square"
@@ -107,8 +113,8 @@ export function LandingPage() {
           </div>
           <div className="space-y-4 max-w-2xl mx-auto">
             <p className="text-sm text-muted-foreground leading-relaxed italic">
-              Built on <strong>Claude 3.5 Sonnet</strong> & <strong>Haiku</strong>, 
-              <strong> VoyageAI</strong> Embeddings, and 
+              Built on <strong>Claude 3.5 Sonnet</strong> & <strong>Haiku</strong>,
+              <strong> VoyageAI</strong> Embeddings, and
               <strong> Eleven Labs</strong> Agents.
             </p>
             <p className="text-xs text-muted-foreground/60 border border-muted/20 rounded-lg p-4 bg-muted/5">
@@ -118,6 +124,7 @@ export function LandingPage() {
           <p className="text-xs font-bold tracking-widest uppercase text-muted-foreground/40">© 2024 Voither Ambient-Agentic Systems</p>
         </div>
       </footer>
+      <FloatingChat />
     </div>
   );
 }

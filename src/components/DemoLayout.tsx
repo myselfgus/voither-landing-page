@@ -2,9 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronLeft } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { LanguageToggle } from './LanguageToggle';
-import { DemoProgress } from './DemoProgress';
-import { FloatingChat } from './FloatingChat';
 interface DemoLayoutProps {
   children: React.ReactNode;
   title: string;
@@ -25,14 +22,8 @@ export function DemoLayout({ children, title }: DemoLayoutProps) {
                 {title} <span className="text-health-teal text-xs ml-2 font-mono uppercase tracking-tighter">Demo</span>
               </h1>
             </div>
-            <div className="flex items-center gap-4">
-              <div className="text-xs font-bold text-muted-foreground uppercase tracking-widest hidden md:block">
-                AACI Engine
-              </div>
-              <div className="h-4 w-px bg-muted/20 hidden md:block" />
-              <DemoProgress />
-              <div className="h-4 w-px bg-muted/20" />
-              <LanguageToggle />
+            <div className="text-xs font-bold text-muted-foreground uppercase tracking-widest hidden sm:block">
+              AACI Engine Simulation
             </div>
           </div>
         </div>
@@ -40,7 +31,6 @@ export function DemoLayout({ children, title }: DemoLayoutProps) {
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-12 md:pb-20">
         {children}
       </main>
-      <FloatingChat />
     </div>
   );
 }
