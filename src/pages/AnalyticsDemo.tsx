@@ -1,6 +1,8 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { DemoLayout } from '@/components/DemoLayout';
-import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip, AreaChart, Area, PieChart, Pie, Cell } from 'recharts';
+import { SEO } from '@/components/SEO';
+import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip, PieChart, Pie, Cell } from 'recharts';
 import { Button } from '@/components/ui/button';
 import { Download, TrendingUp, ShieldCheck } from 'lucide-react';
 const DATA_EFFICIENCY = [
@@ -16,23 +18,25 @@ const DATA_RISK = [
 ];
 const COLORS = ['#00A896', '#3b82f6', '#C44536'];
 export function AnalyticsDemo() {
+  const { t } = useTranslation();
   return (
-    <DemoLayout title="CHM Analytics">
+    <DemoLayout title={t('suite.analytics')}>
+      <SEO title={t('seo.analytics')} />
       <div className="space-y-8">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
           <div>
-            <h2 className="text-3xl font-display font-bold text-health-dark">Health Intelligence Dashboard</h2>
-            <p className="text-muted-foreground">Predictive clinical metrics driven by the AACI Engine.</p>
+            <h2 className="text-3xl font-display font-bold text-health-dark">{t('demos.analytics.subtitle')}</h2>
+            <p className="text-muted-foreground">{t('demos.analytics.desc')}</p>
           </div>
           <Button className="rounded-full bg-health-teal text-white shadow-lg shadow-health-teal/20">
-            <Download className="mr-2 h-4 w-4" /> Export Insights
+            <Download className="mr-2 h-4 w-4" /> {t('demos.analytics.export')}
           </Button>
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           <div className="p-8 rounded-4xl bg-white shadow-neu space-y-6">
             <div className="flex items-center justify-between">
               <h3 className="font-bold text-health-dark flex items-center gap-2">
-                <TrendingUp className="h-5 w-5 text-health-teal" /> Documentation Time (Minutes)
+                <TrendingUp className="h-5 w-5 text-health-teal" /> {t('demos.analytics.efficiency')}
               </h3>
               <span className="text-[10px] font-bold bg-teal-50 text-health-teal px-2 py-1 rounded">68% Improvement</span>
             </div>
@@ -50,7 +54,7 @@ export function AnalyticsDemo() {
           </div>
           <div className="grid grid-cols-1 gap-8">
             <div className="p-8 rounded-4xl bg-white shadow-neu flex flex-col items-center justify-center space-y-4">
-              <h3 className="font-bold text-health-dark">Population Risk Distribution</h3>
+              <h3 className="font-bold text-health-dark">{t('demos.analytics.risk')}</h3>
               <div className="h-[200px] w-full">
                 <ResponsiveContainer width="100%" height="100%">
                   <PieChart>
@@ -82,7 +86,7 @@ export function AnalyticsDemo() {
             <div className="space-y-1">
               <h4 className="font-bold text-health-dark">AI Agent Insight</h4>
               <p className="text-sm text-muted-foreground leading-relaxed">
-                Based on documentation efficiency trends, switching to full ambient documentation across the rheumatology department could recover approximately 14 hours of clinical face-time per week.
+                {t('demos.analytics.insight')}
               </p>
             </div>
           </div>

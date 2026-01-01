@@ -3,35 +3,19 @@ import { useTranslation } from 'react-i18next';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { CheckCircle2, Send, Loader2 } from 'lucide-react';
-import { toast } from 'sonner';
+import { CheckCircle2, Send } from 'lucide-react';
 export function ContactSection() {
   const { t } = useTranslation();
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [formData, setFormData] = useState({ name: '', org: '', email: '' });
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    try {
-      const response = await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData)
-      });
-      const result = await response.json();
-      if (result.success) {
-        setSubmitted(true);
-        toast.success(t('contact.successTitle'));
-      } else {
-        toast.error('Submission failed. Please try again.');
-      }
-    } catch (err) {
-      toast.error('Network error. Check your connection.');
-      console.error(err);
-    } finally {
+    // Simulate API call
+    setTimeout(() => {
       setLoading(false);
-    }
+      setSubmitted(true);
+    }, 1500);
   };
   return (
     <section id="contact" className="py-20 md:py-32">
@@ -43,7 +27,7 @@ export function ContactSection() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95 }}
-              className="p-8 md:p-12 rounded-5xl bg-white/60 backdrop-blur-xl shadow-neu border border-white/50 space-y-8"
+              className="p-8 md:p-12 rounded-5xl bg-white shadow-neu border border-white/50 space-y-8"
             >
               <div className="text-center space-y-2">
                 <h2 className="text-3xl font-display font-bold text-health-dark">
@@ -55,39 +39,29 @@ export function ContactSection() {
               </div>
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="space-y-4">
-                  <Input
-                    required
-                    value={formData.name}
-                    onChange={(e) => setFormData({...formData, name: e.target.value})}
-                    placeholder={t('contact.name')}
-                    className="h-14 rounded-2xl shadow-neu-inset border-none bg-health-bg px-6"
+                  <Input 
+                    required 
+                    placeholder={t('contact.name')} 
+                    className="h-14 rounded-2xl shadow-neu-inset border-none bg-health-bg px-6" 
                   />
-                  <Input
-                    required
-                    value={formData.org}
-                    onChange={(e) => setFormData({...formData, org: e.target.value})}
-                    placeholder={t('contact.org')}
-                    className="h-14 rounded-2xl shadow-neu-inset border-none bg-health-bg px-6"
+                  <Input 
+                    required 
+                    placeholder={t('contact.org')} 
+                    className="h-14 rounded-2xl shadow-neu-inset border-none bg-health-bg px-6" 
                   />
-                  <Input
-                    required
-                    type="email"
-                    value={formData.email}
-                    onChange={(e) => setFormData({...formData, email: e.target.value})}
-                    placeholder={t('contact.email')}
-                    className="h-14 rounded-2xl shadow-neu-inset border-none bg-health-bg px-6"
+                  <Input 
+                    required 
+                    type="email" 
+                    placeholder={t('contact.email')} 
+                    className="h-14 rounded-2xl shadow-neu-inset border-none bg-health-bg px-6" 
                   />
                 </div>
-                <Button
+                <Button 
                   disabled={loading}
-                  type="submit"
+                  type="submit" 
                   className="w-full h-14 bg-health-teal hover:bg-health-teal/90 text-white rounded-2xl text-lg font-bold shadow-lg shadow-health-teal/20 transition-all hover:scale-[1.02] active:scale-95"
                 >
-                  {loading ? (
-                    <span className="flex items-center gap-2">
-                      <Loader2 className="h-5 w-5 animate-spin" /> {t('contact.sending')}
-                    </span>
-                  ) : (
+                  {loading ? t('contact.sending') : (
                     <>
                       {t('contact.submit')} <Send className="ml-2 h-5 w-5" />
                     </>
@@ -113,9 +87,9 @@ export function ContactSection() {
                   {t('contact.successMessage')}
                 </p>
               </div>
-              <Button
+              <Button 
                 onClick={() => setSubmitted(false)}
-                variant="ghost"
+                variant="ghost" 
                 className="text-health-teal font-bold"
               >
                 {t('contact.back')}

@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { DemoLayout } from '@/components/DemoLayout';
+import { SEO } from '@/components/SEO';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -10,6 +12,7 @@ const MOCK_PATIENTS = [
   { id: 3, name: "Ana L.", symptoms: "Suspected fracture, moderate pain", status: 'pending' }
 ];
 export function SortioDemo() {
+  const { t } = useTranslation();
   const [patients, setPatients] = useState(MOCK_PATIENTS);
   const [processingId, setProcessingId] = useState<number | null>(null);
   const triagePatient = (id: number) => {
@@ -26,11 +29,12 @@ export function SortioDemo() {
     }, 1500);
   };
   return (
-    <DemoLayout title="Sortio Triage">
+    <DemoLayout title={t('suite.sortio')}>
+      <SEO title={t('seo.sortio')} />
       <div className="max-w-4xl mx-auto space-y-12">
         <div className="text-center space-y-4">
-          <h2 className="text-3xl font-display font-bold text-health-dark">Emergency Queue Simulation</h2>
-          <p className="text-muted-foreground">Click 'AI Triage' to process patient symptoms through AACI agentic logic.</p>
+          <h2 className="text-3xl font-display font-bold text-health-dark">{t('demos.sortio.subtitle')}</h2>
+          <p className="text-muted-foreground">{t('demos.sortio.desc')}</p>
         </div>
         <div className="space-y-6">
           {patients.map((patient) => (
@@ -58,9 +62,13 @@ export function SortioDemo() {
                       className="rounded-full bg-health-dark text-white px-6"
                     >
                       {processingId === patient.id ? (
-                        <motion.span animate={{ opacity: [1, 0.5, 1] }} transition={{ repeat: Infinity }}>Analyzing...</motion.span>
+                        <motion.span animate={{ opacity: [1, 0.5, 1] }} transition={{ repeat: Infinity }}>
+                          {t('demos.sortio.analyzing')}
+                        </motion.span>
                       ) : (
-                        <>AI Triage <ClipboardCheck className="ml-2 h-4 w-4" /></>
+                        <>
+                          {t('demos.sortio.analyze')} <ClipboardCheck className="ml-2 h-4 w-4" />
+                        </>
                       )}
                     </Button>
                   ) : (
@@ -69,10 +77,10 @@ export function SortioDemo() {
                         patient.status === 'critical' ? 'bg-health-danger text-white' :
                         patient.status === 'medium' ? 'bg-amber-500 text-white' : 'bg-health-teal text-white'
                       }`}>
-                        {patient.status} Priority
+                        {patient.status} {t('demos.sortio.priority')}
                       </Badge>
                       <span className="text-[10px] text-muted-foreground italic flex items-center gap-1">
-                        <ShieldAlert className="h-3 w-3" /> Zero-Hallucination Verified
+                        <ShieldAlert className="h-3 w-3" /> {t('demos.sortio.verified')}
                       </span>
                     </motion.div>
                   )}

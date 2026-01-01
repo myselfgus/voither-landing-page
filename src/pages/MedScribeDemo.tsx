@@ -1,16 +1,19 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { DemoLayout } from '@/components/DemoLayout';
+import { SEO } from '@/components/SEO';
 import { Button } from '@/components/ui/button';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Mic, Square, FileText, CheckCircle2 } from 'lucide-react';
 export function MedScribeDemo() {
+  const { t } = useTranslation();
   const [isRecording, setIsRecording] = useState(false);
   const [transcript, setTranscript] = useState('');
   const [soapNote, setSoapNote] = useState<null | Record<string, string>>(null);
   const startRecording = () => {
     setIsRecording(true);
     setSoapNote(null);
-    setTranscript("Simulating ambient clinical audio intake...");
+    setTranscript(t('demos.medscribe.placeholder'));
     setTimeout(() => {
       setTranscript("Patient reports persistent joint pain in both knees, worse in the morning. Denies recent injury. Physical exam shows mild swelling in the right patellar region. Recommended Ibuprofen 400mg and follow-up in 2 weeks.");
     }, 2000);
@@ -25,7 +28,8 @@ export function MedScribeDemo() {
     });
   };
   return (
-    <DemoLayout title="MedScribe">
+    <DemoLayout title={t('suite.medscribe')}>
+      <SEO title={t('seo.medscribe')} />
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
         <div className="space-y-8">
           <div className="p-8 rounded-4xl bg-white shadow-neu flex flex-col items-center gap-8 min-h-[400px]">
@@ -46,24 +50,24 @@ export function MedScribeDemo() {
             <div className="center gap-4">
               {!isRecording ? (
                 <Button onClick={startRecording} size="lg" className="rounded-full bg-health-teal hover:bg-health-teal/90 text-white px-8 py-7 shadow-lg shadow-health-teal/20">
-                  <Mic className="mr-2 h-5 w-5" /> Start Ambient Scribe
+                  <Mic className="mr-2 h-5 w-5" /> {t('demos.medscribe.start')}
                 </Button>
               ) : (
                 <Button onClick={stopRecording} variant="destructive" size="lg" className="rounded-full px-8 py-7 shadow-lg shadow-red-500/20">
-                  <Square className="mr-2 h-5 w-5" /> Stop Intake
+                  <Square className="mr-2 h-5 w-5" /> {t('demos.medscribe.stop')}
                 </Button>
               )}
             </div>
             <div className="w-full p-6 rounded-3xl bg-health-bg shadow-neu-inset font-mono text-sm text-health-dark leading-relaxed min-h-[150px]">
-              {transcript || "Press start to begin clinical transcription..."}
+              {transcript || t('demos.medscribe.placeholder')}
             </div>
           </div>
         </div>
         <div className="space-y-6">
           <div className="flex justify-between items-center">
-            <h3 className="text-2xl font-display font-bold text-health-dark">Documentation Output</h3>
+            <h3 className="text-2xl font-display font-bold text-health-dark">{t('demos.medscribe.output')}</h3>
             <Button disabled={!transcript || isRecording} onClick={generateSOAP} variant="outline" className="rounded-full shadow-neu-soft">
-              <FileText className="mr-2 h-4 w-4" /> Generate SOAP Note
+              <FileText className="mr-2 h-4 w-4" /> {t('demos.medscribe.generate')}
             </Button>
           </div>
           <AnimatePresence>

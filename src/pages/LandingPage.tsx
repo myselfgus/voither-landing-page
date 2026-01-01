@@ -8,6 +8,9 @@ import { AACIEngine } from '@/components/AACIEngine';
 import { QualityBarriers } from '@/components/QualityBarriers';
 import { ProductSuite } from '@/components/ProductSuite';
 import { FloatingChat } from '@/components/FloatingChat';
+import { SEO } from '@/components/SEO';
+import { ContactSection } from '@/components/ContactSection';
+import { StartupBadges } from '@/components/StartupBadges';
 import { Button } from '@/components/ui/button';
 import { ChevronRight, Sparkles } from 'lucide-react';
 import '@/lib/i18n';
@@ -25,6 +28,7 @@ export function LandingPage() {
   }, []);
   return (
     <div className="min-h-screen bg-health-bg font-sans selection:bg-health-teal/30">
+      <SEO />
       <Navbar />
       {/* Hero Section */}
       <section className="relative pt-40 pb-20 md:pt-56 md:pb-32 overflow-hidden">
@@ -68,34 +72,30 @@ export function LandingPage() {
                   <img src={heroImg} alt="Healthcare AI" className="h-full w-full object-cover" />
                 </div>
               </div>
-              <div className="absolute -bottom-8 -left-8 p-6 rounded-3xl bg-white shadow-neu-soft border border-white max-w-[200px]">
-                <p className="text-xs font-bold text-health-teal uppercase mb-1">Live Processing</p>
-                <p className="text-sm text-health-dark font-medium leading-snug">Ambience detected. Generating SOAP note...</p>
-              </div>
             </motion.div>
           </div>
         </div>
       </section>
       {/* Stats Section */}
-      <section className="py-20 md:py-32 bg-health-bg">
+      <section className="py-20 md:py-24 bg-health-bg">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <StatsGrid />
         </div>
       </section>
       {/* Engine Section */}
-      <section className="py-20 md:py-32">
+      <section className="py-20 md:py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <AACIEngine />
         </div>
       </section>
       {/* Barriers Section */}
-      <section className="py-20 md:py-32 bg-health-bg">
+      <section className="py-20 md:py-24 bg-health-bg">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <QualityBarriers />
         </div>
       </section>
       {/* Suite Section */}
-      <section className="py-20 md:py-32">
+      <section className="py-20 md:py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-16">
           <h2 className="text-4xl md:text-5xl font-display font-bold text-health-dark">
             Clinical Product Suite
@@ -103,14 +103,10 @@ export function LandingPage() {
           <ProductSuite />
         </div>
       </section>
+      <StartupBadges />
+      <ContactSection />
       <footer className="py-20 border-t border-muted/20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-10">
-          <div className="flex flex-wrap justify-center gap-12 opacity-40 grayscale hover:grayscale-0 transition-all">
-            <span className="font-display font-bold text-2xl tracking-tighter">Microsoft Founders</span>
-            <span className="font-display font-bold text-2xl tracking-tighter">Cloudflare</span>
-            <span className="font-display font-bold text-2xl tracking-tighter">MongoDB</span>
-            <span className="font-display font-bold text-2xl tracking-tighter">Stripe</span>
-          </div>
           <div className="space-y-4 max-w-2xl mx-auto">
             <p className="text-sm text-muted-foreground leading-relaxed italic">
               Built on <strong>Claude 3.5 Sonnet</strong> & <strong>Haiku</strong>,
