@@ -1,6 +1,6 @@
 # Cloudflare AI Chat App Template
 
-[cloudflarebutton]
+[![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/myselfgus/voither-landing-page)
 
 A production-ready **Cloudflare Workers** application featuring a modern, responsive AI chat interface with multi-session support, streaming responses, tool calling (weather, web search, MCP tools), and session management. Built with the Cloudflare Agents SDK, it leverages Durable Objects for stateful chat sessions and Cloudflare AI Gateway for Gemini model integration.
 
@@ -119,7 +119,7 @@ wrangler deploy
 - **Environment Vars**: Configure in Dashboard (overrides `wrangler.jsonc`).
 - **Observability**: Enabled by default (logs, metrics).
 
-[cloudflarebutton]
+[![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/myselfgus/voither-landing-page)
 
 ## 🤝 Contributing
 
