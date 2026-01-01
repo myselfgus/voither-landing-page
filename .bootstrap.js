@@ -81,7 +81,8 @@ function runSetupCommands() {
     "bun add react-i18next@^15.1.0",
     "bun add i18next@^23.11.5",
     "bun add react-intersection-observer@^9.10.3",
-    "bun add react-helmet-async@^2.0.5"
+    "bun add react-helmet-async@^2.0.5",
+    "bun add react-helmet-async recharts"
 ];
     
     if (commands.length === 0) {
