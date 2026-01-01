@@ -11,10 +11,23 @@ export function FloatingChat() {
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
-  useEffect(() => {
+  const scrollToBottom = () => {
     if (scrollRef.current) {
-      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+      scrollRef.current.scrollTo({
+        top: scrollRef.current.scrollHeight,
+        behavior: 'smooth'
+      });
     }
+  };
+  useEffect(() => {
+    if (isOpen) {
+      // Small delay to allow animation to complete
+      const timer = setTimeout(scrollToBottom, 300);
+      return () => clearTimeout(timer);
+    }
+  }, [isOpen]);
+  useEffect(() => {
+    scrollToBottom();
   }, [messages, isLoading]);
   const handleSend = async () => {
     if (!input.trim() || isLoading) return;
@@ -43,7 +56,7 @@ export function FloatingChat() {
   };
   const extractCitations = (content: string) => {
     const matches = content.match(/\[(.*?)\]/g);
-    return matches ? matches.map(m => m.slice(1, -1)) : [];
+    return matches ? Array.from(new Set(matches.map(m => m.slice(1, -1)))) : [];
   };
   return (
     <div className="fixed bottom-6 right-6 z-[100]">
@@ -69,11 +82,11 @@ export function FloatingChat() {
                 <X className="h-5 w-5" />
               </Button>
             </div>
-            <div ref={scrollRef} className="flex-1 overflow-y-auto p-4 space-y-4 bg-health-bg/50 m-2 rounded-3xl shadow-neu-inset">
+            <div ref={scrollRef} className="flex-1 overflow-y-auto p-4 space-y-4 bg-health-bg/50 m-2 rounded-3xl shadow-neu-inset scroll-smooth">
               {messages.length === 0 && (
-                <div className="text-center py-8 space-y-2 opacity-60">
+                <div className="text-center py-12 space-y-3 opacity-60">
                   <p className="text-sm font-semibold text-health-dark italic">"How does MedScribe integrate with existing EHRs?"</p>
-                  <p className="text-[10px] text-muted-foreground uppercase font-black">Ask about our AACI Engine capabilities</p>
+                  <p className="text-[10px] text-muted-foreground uppercase font-black tracking-widest">Ask about our AACI Engine capabilities</p>
                 </div>
               )}
               {messages.map((m) => {
@@ -86,36 +99,42 @@ export function FloatingChat() {
                       {m.content}
                     </div>
                     {citations.length > 0 && (
-                      <div className="flex flex-wrap gap-1 mt-2">
+                      <div className="flex flex-wrap gap-1.5 mt-2">
                         {citations.map((cite, i) => (
-                          <div key={i} className="flex items-center gap-1 px-2 py-0.5 rounded-full bg-health-teal/10 text-[9px] font-bold text-health-teal">
-                            <Bookmark className="h-2 w-2" /> {cite}
-                          </div>
+                          <motion.div 
+                            key={i} 
+                            whileHover={{ scale: 1.05 }}
+                            className="flex items-center gap-1 px-2.5 py-1 rounded-full bg-health-teal/10 text-[9px] font-bold text-health-teal cursor-help"
+                          >
+                            <Bookmark className="h-2.5 w-2.5" /> {cite}
+                          </motion.div>
                         ))}
                       </div>
                     )}
                   </div>
                 );
               })}
-              {isLoading && (
-                <div className="flex justify-start">
-                  <div className="p-4 rounded-3xl bg-white/90 text-health-dark shadow-neu-soft border border-white/50 space-y-2">
-                    <div className="flex items-center gap-2">
-                      <div className="h-2 w-2 rounded-full bg-health-teal animate-pulse" />
-                      <span className="text-[10px] font-bold uppercase tracking-tighter text-muted-foreground">AutoRAG Synthesizing...</span>
+              <div className="min-h-[60px]">
+                {isLoading && (
+                  <div className="flex justify-start">
+                    <div className="p-4 rounded-3xl bg-white/90 text-health-dark shadow-neu-soft border border-white/50 space-y-2">
+                      <div className="flex items-center gap-2">
+                        <div className="h-2 w-2 rounded-full bg-health-teal animate-pulse" />
+                        <span className="text-[10px] font-bold uppercase tracking-tighter text-muted-foreground">AutoRAG Synthesizing...</span>
+                      </div>
+                      <motion.div
+                        className="h-1 bg-health-teal/20 rounded-full overflow-hidden w-24"
+                      >
+                        <motion.div
+                          animate={{ x: [-48, 96] }}
+                          transition={{ repeat: Infinity, duration: 1.5 }}
+                          className="h-full w-12 bg-health-teal"
+                        />
+                      </motion.div>
                     </div>
-                    <motion.div 
-                      className="h-1 bg-health-teal/20 rounded-full overflow-hidden w-24"
-                    >
-                      <motion.div 
-                        animate={{ x: [-48, 96] }} 
-                        transition={{ repeat: Infinity, duration: 1.5 }} 
-                        className="h-full w-12 bg-health-teal"
-                      />
-                    </motion.div>
                   </div>
-                </div>
-              )}
+                )}
+              </div>
             </div>
             <div className="p-4 space-y-3 bg-white/50 backdrop-blur-md">
               <div className="flex gap-2">

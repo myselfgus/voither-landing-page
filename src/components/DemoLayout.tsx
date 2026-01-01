@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronLeft } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { LanguageToggle } from './LanguageToggle';
 interface DemoLayoutProps {
   children: React.ReactNode;
   title: string;
@@ -22,8 +23,12 @@ export function DemoLayout({ children, title }: DemoLayoutProps) {
                 {title} <span className="text-health-teal text-xs ml-2 font-mono uppercase tracking-tighter">Demo</span>
               </h1>
             </div>
-            <div className="text-xs font-bold text-muted-foreground uppercase tracking-widest hidden sm:block">
-              AACI Engine Simulation
+            <div className="flex items-center gap-4">
+              <div className="text-xs font-bold text-muted-foreground uppercase tracking-widest hidden md:block">
+                AACI Engine Simulation
+              </div>
+              <div className="h-4 w-px bg-muted/20 hidden md:block" />
+              <LanguageToggle />
             </div>
           </div>
         </div>
