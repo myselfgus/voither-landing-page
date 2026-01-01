@@ -29,6 +29,19 @@ const resources = {
         successMessage: 'Our clinical integration team will contact you within 24 hours.',
         back: 'Send another request'
       },
+      gamification: {
+        xp: 'XP',
+        level: 'Level',
+        pointsEarned: 'Points Earned',
+        levelUp: 'Clinical Level Up!',
+        titles: {
+          intern: 'Medical Intern',
+          resident: 'Clinical Resident',
+          specialist: 'Healthcare Specialist',
+          attending: 'Attending Physician',
+          chief_medical_officer: 'Chief Medical Officer'
+        }
+      },
       partners: { title: 'Our Innovation Network' },
       demos: {
         medscribe: { 
@@ -95,6 +108,19 @@ const resources = {
         successTitle: 'Solicitação Recebida',
         successMessage: 'Nossa equipe de integração clínica entrará em contato em até 24 horas.',
         back: 'Enviar outra solicitação'
+      },
+      gamification: {
+        xp: 'XP',
+        level: 'Nível',
+        pointsEarned: 'Pontos Ganhos',
+        levelUp: 'Aumento de Nível Clínico!',
+        titles: {
+          intern: 'Interno Médico',
+          resident: 'Residente Clínico',
+          specialist: 'Especialista em Saúde',
+          attending: 'Médico Assistente',
+          chief_medical_officer: 'Diretor Médico'
+        }
       },
       partners: { title: 'Nossa Rede de Inovação' },
       demos: {

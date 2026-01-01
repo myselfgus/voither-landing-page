@@ -4,12 +4,15 @@ import { DemoLayout } from '@/components/DemoLayout';
 import { SEO } from '@/components/SEO';
 import { Button } from '@/components/ui/button';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useGamificationStore } from '@/lib/gamification';
 import { Mic, Square, FileText, CheckCircle2 } from 'lucide-react';
+import { toast } from 'sonner';
 export function MedScribeDemo() {
   const { t } = useTranslation();
   const [isRecording, setIsRecording] = useState(false);
   const [transcript, setTranscript] = useState('');
   const [soapNote, setSoapNote] = useState<null | Record<string, string>>(null);
+  const addXP = useGamificationStore((s) => s.addXP);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   useEffect(() => {
     // Cleanup on unmount
@@ -34,11 +37,17 @@ export function MedScribeDemo() {
     }
   };
   const generateSOAP = () => {
+    if (soapNote) return; // Prevent spamming
     setSoapNote({
       Subjective: "Bilateral knee pain, morning stiffness. No trauma.",
       Objective: "Mild right patellar swelling noted on exam.",
       Assessment: "Osteoarthritis of knees, suspected flare-up.",
       Plan: "Ibuprofen 400mg PRN, 2-week follow-up."
+    });
+    addXP(50);
+    toast.success("+50 Clinical XP", {
+      description: "Documentation successfully synthesized.",
+      icon: <FileText className="h-4 w-4" />
     });
   };
   return (

@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { ChevronLeft } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { LanguageToggle } from './LanguageToggle';
+import { DemoProgress } from './DemoProgress';
 interface DemoLayoutProps {
   children: React.ReactNode;
   title: string;
@@ -25,9 +26,11 @@ export function DemoLayout({ children, title }: DemoLayoutProps) {
             </div>
             <div className="flex items-center gap-4">
               <div className="text-xs font-bold text-muted-foreground uppercase tracking-widest hidden md:block">
-                AACI Engine Simulation
+                AACI Engine
               </div>
               <div className="h-4 w-px bg-muted/20 hidden md:block" />
+              <DemoProgress />
+              <div className="h-4 w-px bg-muted/20" />
               <LanguageToggle />
             </div>
           </div>

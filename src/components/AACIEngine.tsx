@@ -29,18 +29,36 @@ export function AACIEngine() {
           ))}
         </ul>
       </div>
-      <motion.div 
-        whileHover={{ scale: 1.02 }}
+      <motion.div
+        whileHover={{ scale: 1.01 }}
         className="relative aspect-square md:aspect-video lg:aspect-square bg-white rounded-5xl shadow-neu p-8 flex flex-col justify-end overflow-hidden"
       >
-        <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 flex items-center justify-center gap-1.5 px-8">
-          {[...Array(24)].map((_, i) => (
-            <motion.div
-              key={i}
-              className="w-1 bg-health-teal rounded-full"
-              animate={{ height: [10, 40, 20, 60, 10][i % 5] }}
-              transition={{ repeat: Infinity, duration: 1.2, delay: i * 0.05 }}
-            />
+        <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 flex items-center justify-center gap-2 px-8">
+          {/* Multi-layered Wave System */}
+          {[...Array(3)].map((_, layer) => (
+            <div key={layer} className={`absolute flex items-center justify-center gap-1.5 opacity-${layer === 0 ? '100' : layer === 1 ? '40' : '20'}`}>
+              {[...Array(24)].map((_, i) => (
+                <motion.div
+                  key={i}
+                  className="w-1.5 bg-health-teal rounded-full shadow-glow"
+                  animate={{
+                    height: [
+                      (10 + layer * 5),
+                      (40 + layer * 10),
+                      (20 + layer * 5),
+                      (60 + layer * 15),
+                      (10 + layer * 5)
+                    ][(i + layer) % 5]
+                  }}
+                  transition={{
+                    repeat: Infinity,
+                    duration: 1.2 + layer * 0.2,
+                    delay: i * 0.05 + layer * 0.1,
+                    ease: "easeInOut"
+                  }}
+                />
+              ))}
+            </div>
           ))}
         </div>
         <div className="relative z-10 p-6 rounded-3xl bg-white/80 backdrop-blur-sm border border-white/40 shadow-neu-soft">

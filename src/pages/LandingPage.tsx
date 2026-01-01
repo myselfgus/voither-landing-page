@@ -28,46 +28,59 @@ export function LandingPage() {
     })
     .catch(() => {});
   }, []);
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.1, delayChildren: 0.3 }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } }
+  };
+
   return (
     <div className="min-h-screen bg-health-bg font-sans selection:bg-health-teal/30 overflow-x-hidden">
       <SEO />
       <Navbar />
       {/* Hero Section */}
       <section className="relative pt-40 pb-20 md:pt-64 md:pb-40 overflow-hidden">
-        {/* Background Decorative Elements */}
+        <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{ backgroundImage: 'radial-gradient(#00A896 0.5px, transparent 0.5px)', backgroundSize: '24px 24px' }} />
         <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-health-teal/5 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/2" />
-        <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-blue-500/5 rounded-full blur-[100px] translate-y-1/2 -translate-x-1/2" />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <motion.div
-              initial={{ opacity: 0, x: -50 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, ease: "easeOut" }}
+              variants={containerVariants}
+              initial="hidden"
+              animate="visible"
               className="space-y-10"
             >
-              <div className="inline-flex items-center gap-2 px-6 py-2 rounded-full bg-white/40 backdrop-blur-xl shadow-neu-soft border border-white/60">
+              <motion.div variants={itemVariants} className="inline-flex items-center gap-2 px-6 py-2 rounded-full bg-white/40 backdrop-blur-xl shadow-neu-soft border border-white/60">
                 <Sparkles className="h-4 w-4 text-health-teal animate-pulse" />
                 <span className="text-[10px] font-black text-health-dark uppercase tracking-[0.2em]">Ambient Intelligence v1.0</span>
-              </div>
-              <h1 className="text-display leading-[0.95] tracking-tight text-health-dark">
+              </motion.div>
+              <motion.h1 variants={itemVariants} className="text-display leading-[0.95] tracking-tight text-health-dark">
                 {t('hero.title')}
-              </h1>
-              <p className="text-xl text-muted-foreground leading-relaxed max-w-lg font-medium">
+              </motion.h1>
+              <motion.p variants={itemVariants} className="text-xl text-muted-foreground leading-relaxed max-w-lg font-medium">
                 {t('hero.subtitle')}
-              </p>
-              <div className="flex flex-wrap gap-5">
+              </motion.p>
+              <motion.div variants={itemVariants} className="flex flex-wrap gap-5">
                 <Link to="/medscribe">
-                  <Button size="lg" className="bg-health-dark hover:bg-health-dark/90 text-white rounded-2xl px-10 py-8 text-lg font-bold shadow-2xl transition-all hover:scale-[1.03] active:scale-95">
+                  <Button size="lg" className="bg-health-dark hover:bg-health-dark/90 text-white rounded-2xl px-10 py-8 text-lg font-bold shadow-2xl transition-all hover:scale-[1.03] active:translate-y-1 active:shadow-neu-inset">
                     {t('nav.start')} <ChevronRight className="ml-2 h-5 w-5" />
                   </Button>
                 </Link>
                 <a href="#suite">
-                  <Button variant="ghost" size="lg" className="rounded-2xl px-10 py-8 text-lg font-bold shadow-neu-soft border border-white/80 bg-white/40 backdrop-blur-md hover:bg-white/60 transition-all">
+                  <Button variant="ghost" size="lg" className="rounded-2xl px-10 py-8 text-lg font-bold shadow-neu-soft border border-white/80 bg-white/40 backdrop-blur-md hover:bg-white/60 transition-all active:shadow-neu-inset active:scale-95">
                     {t('nav.products')}
                   </Button>
                 </a>
-              </div>
-              <div className="flex items-center gap-6 pt-4">
+              </motion.div>
+              <motion.div variants={itemVariants} className="flex items-center gap-6 pt-4">
                 <div className="flex -space-x-3">
                   {[1,2,3,4].map(i => (
                     <div key={i} className="h-10 w-10 rounded-full border-2 border-white bg-health-bg shadow-sm overflow-hidden grayscale">
@@ -78,7 +91,7 @@ export function LandingPage() {
                 <div className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground flex items-center gap-2">
                   <Activity className="h-3 w-3 text-health-teal" /> Verified by 500+ Clinicians
                 </div>
-              </div>
+              </motion.div>
             </motion.div>
             <motion.div
               initial={{ opacity: 0, scale: 0.85, rotate: 2 }}

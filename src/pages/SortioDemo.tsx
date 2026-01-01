@@ -5,7 +5,10 @@ import { SEO } from '@/components/SEO';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
+import { useGamificationStore } from '@/lib/gamification';
 import { ClipboardCheck, ShieldAlert, Activity } from 'lucide-react';
+import { toast } from 'sonner';
+
 const MOCK_PATIENTS = [
   { id: 1, name: "Maria S.", symptoms: "Shortness of breath, chest pressure", status: 'pending' },
   { id: 2, name: "Joao P.", symptoms: "Persistent cough, minor fever", status: 'pending' },
@@ -15,7 +18,11 @@ export function SortioDemo() {
   const { t } = useTranslation();
   const [patients, setPatients] = useState(MOCK_PATIENTS);
   const [processingId, setProcessingId] = useState<number | null>(null);
+  const [startTime, setStartTime] = useState<number>(Date.now());
+  const addXP = useGamificationStore((s) => s.addXP);
+
   const triagePatient = (id: number) => {
+    const triageTime = Date.now();
     setProcessingId(id);
     setTimeout(() => {
       setPatients(prev => prev.map(p => {
@@ -26,8 +33,19 @@ export function SortioDemo() {
         return p;
       }));
       setProcessingId(null);
+      
+      const isFast = (Date.now() - triageTime) < 5000;
+      const baseXP = 20;
+      const bonusXP = isFast ? 10 : 0;
+      
+      addXP(baseXP + bonusXP);
+      toast.success(`+${baseXP + bonusXP} Clinical XP`, {
+        description: isFast ? "Speed Bonus Awarded!" : "Patient prioritized correctly.",
+        icon: <Activity className="h-4 w-4" />
+      });
     }, 1500);
   };
+
   return (
     <DemoLayout title={t('suite.sortio')}>
       <SEO title={t('seo.sortio')} />
@@ -72,11 +90,11 @@ export function SortioDemo() {
                       )}
                     </Button>
                   ) : (
-                    <motion.div initial={{ scale: 0.8, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} className="flex flex-col items-end gap-1">
+                    <motion.div initial={{ scale: 0.8, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} className="flex flex-col items-end gap-1 group">
                       <Badge className={`rounded-full px-4 py-1 uppercase text-[10px] font-bold ${
                         patient.status === 'critical' ? 'bg-health-danger text-white' :
-                        patient.status === 'medium' ? 'bg-amber-500 text-white' : 'bg-health-teal text-white'
-                      }`}>
+                        patient.status === 'medium' ? 'bg-amber-500 text-white' : 'bg-health-teal text-white shadow-glow'
+                      } transition-all group-hover:scale-105 shadow-soft`}>
                         {patient.status} {t('demos.sortio.priority')}
                       </Badge>
                       <span className="text-[10px] text-muted-foreground italic flex items-center gap-1">
