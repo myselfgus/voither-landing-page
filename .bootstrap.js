@@ -83,7 +83,8 @@ function runSetupCommands() {
     "bun add react-intersection-observer@^9.10.3",
     "bun add react-helmet-async@^2.0.5",
     "bun add react-helmet-async",
-    "bun add zustand"
+    "bun add zustand",
+    "bun add canvas-confetti"
 ];
     
     if (commands.length === 0) {
