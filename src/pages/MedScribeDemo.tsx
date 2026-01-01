@@ -1,0 +1,136 @@
+import React, { useState, useEffect, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
+import { DemoLayout } from '@/components/DemoLayout';
+import { SEO } from '@/components/SEO';
+import { Button } from '@/components/ui/button';
+import { motion, AnimatePresence } from 'framer-motion';
+import { useGamificationStore } from '@/lib/gamification';
+import { Mic, Square, FileText, CheckCircle2 } from 'lucide-react';
+import { toast } from 'sonner';
+export function MedScribeDemo() {
+  const { t } = useTranslation();
+  const [isRecording, setIsRecording] = useState(false);
+  const [transcript, setTranscript] = useState('');
+  const [soapNote, setSoapNote] = useState<null | Record<string, string>>(null);
+  const addXP = useGamificationStore((s) => s.addXP);
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  useEffect(() => {
+    // Cleanup on unmount
+    return () => {
+      if (timerRef.current) clearTimeout(timerRef.current);
+    };
+  }, []);
+  const startRecording = () => {
+    if (timerRef.current) clearTimeout(timerRef.current);
+    setIsRecording(true);
+    setSoapNote(null);
+    setTranscript(t('demos.medscribe.placeholder'));
+    timerRef.current = setTimeout(() => {
+      setTranscript("Patient reports persistent joint pain in both knees, worse in the morning. Denies recent injury. Physical exam shows mild swelling in the right patellar region. Recommended Ibuprofen 400mg and follow-up in 2 weeks.");
+    }, 2000);
+  };
+  const stopRecording = () => {
+    setIsRecording(false);
+    if (timerRef.current) {
+      clearTimeout(timerRef.current);
+      timerRef.current = null;
+    }
+  };
+  const generateSOAP = () => {
+    if (soapNote) return; // Prevent spamming
+    setSoapNote({
+      Subjective: "Bilateral knee pain, morning stiffness. No trauma.",
+      Objective: "Mild right patellar swelling noted on exam.",
+      Assessment: "Osteoarthritis of knees, suspected flare-up.",
+      Plan: "Ibuprofen 400mg PRN, 2-week follow-up."
+    });
+    addXP(50);
+    toast.success("+50 Clinical XP", {
+      description: "Documentation successfully synthesized.",
+      icon: <FileText className="h-4 w-4" />
+    });
+  };
+  return (
+    <DemoLayout title={t('suite.medscribe')}>
+      <SEO title={t('seo.medscribe')} />
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        <div className="space-y-8">
+          <div className="p-8 rounded-4xl bg-white shadow-neu flex flex-col items-center gap-8 min-h-[400px]">
+            <div className="h-24 flex items-center justify-center gap-1.5 w-full overflow-hidden">
+              <AnimatePresence mode="wait">
+                {isRecording ? (
+                  <motion.div 
+                    key="active"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    className="flex items-center justify-center gap-1.5 w-full"
+                  >
+                    {[...Array(12)].map((_, i) => (
+                      <motion.div
+                        key={i}
+                        className="w-2 bg-health-teal rounded-full"
+                        animate={{ height: [20, 80, 40, 60, 20][i % 5] }}
+                        transition={{ repeat: Infinity, duration: 0.8, delay: i * 0.05 }}
+                      />
+                    ))}
+                  </motion.div>
+                ) : (
+                  <motion.div 
+                    key="idle"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    className="h-0.5 w-32 bg-muted rounded-full" 
+                  />
+                )}
+              </AnimatePresence>
+            </div>
+            <div className="center gap-4">
+              {!isRecording ? (
+                <Button onClick={startRecording} size="lg" className="rounded-full bg-health-teal hover:bg-health-teal/90 text-white px-8 py-7 shadow-lg shadow-health-teal/20 transition-all hover:scale-105 active:scale-95">
+                  <Mic className="mr-2 h-5 w-5" /> {t('demos.medscribe.start')}
+                </Button>
+              ) : (
+                <Button onClick={stopRecording} variant="destructive" size="lg" className="rounded-full px-8 py-7 shadow-lg shadow-red-500/20 transition-all hover:scale-105 active:scale-95">
+                  <Square className="mr-2 h-5 w-5" /> {t('demos.medscribe.stop')}
+                </Button>
+              )}
+            </div>
+            <div className="w-full p-6 rounded-3xl bg-health-bg shadow-neu-inset font-mono text-sm text-health-dark leading-relaxed min-h-[150px]">
+              {transcript || t('demos.medscribe.placeholder')}
+            </div>
+          </div>
+        </div>
+        <div className="space-y-6">
+          <div className="flex justify-between items-center">
+            <h3 className="text-2xl font-display font-bold text-health-dark">{t('demos.medscribe.output')}</h3>
+            <Button disabled={!transcript || isRecording} onClick={generateSOAP} variant="outline" className="rounded-full shadow-neu-soft hover:shadow-neu-inset transition-all">
+              <FileText className="mr-2 h-4 w-4" /> {t('demos.medscribe.generate')}
+            </Button>
+          </div>
+          <AnimatePresence>
+            {soapNote && (
+              <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="space-y-4">
+                {Object.entries(soapNote).map(([key, value], i) => (
+                  <motion.div
+                    key={key}
+                    initial={{ opacity: 0, x: -10 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: i * 0.1 }}
+                    className="p-6 rounded-3xl bg-white shadow-neu-soft border-l-4 border-health-teal"
+                  >
+                    <div className="flex items-center gap-2 mb-2">
+                      <CheckCircle2 className="h-4 w-4 text-health-teal" />
+                      <span className="text-xs font-bold uppercase tracking-widest text-muted-foreground">{key}</span>
+                    </div>
+                    <p className="text-health-dark font-medium">{value}</p>
+                  </motion.div>
+                ))}
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
+      </div>
+    </DemoLayout>
+  );
+}
