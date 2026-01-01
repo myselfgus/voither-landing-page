@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { motion } from 'framer-motion';
+import { motion, Variants } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { Navbar } from '@/components/Navbar';
 import { StatsGrid } from '@/components/StatsGrid';
@@ -11,6 +11,7 @@ import { FloatingChat } from '@/components/FloatingChat';
 import { SEO } from '@/components/SEO';
 import { ContactSection } from '@/components/ContactSection';
 import { StartupBadges } from '@/components/StartupBadges';
+import { HeroVisual } from '@/components/HeroVisual';
 import { Button } from '@/components/ui/button';
 import { ChevronRight, Sparkles, Activity } from 'lucide-react';
 import '@/lib/i18n';
@@ -28,28 +29,28 @@ export function LandingPage() {
     })
     .catch(() => {});
   }, []);
-
-  const containerVariants = {
+  const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: { staggerChildren: 0.1, delayChildren: 0.3 }
     }
   };
-
-  const itemVariants = {
+  const itemVariants: Variants = {
     hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } }
+    visible: { 
+      opacity: 1, 
+      y: 0, 
+      transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } 
+    }
   };
-
   return (
     <div className="min-h-screen bg-health-bg font-sans selection:bg-health-teal/30 overflow-x-hidden">
       <SEO />
       <Navbar />
       {/* Hero Section */}
       <section className="relative pt-40 pb-20 md:pt-64 md:pb-40 overflow-hidden">
-        <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{ backgroundImage: 'radial-gradient(#00A896 0.5px, transparent 0.5px)', backgroundSize: '24px 24px' }} />
-        <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-health-teal/5 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/2" />
+        <HeroVisual />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <motion.div
@@ -70,12 +71,12 @@ export function LandingPage() {
               </motion.p>
               <motion.div variants={itemVariants} className="flex flex-wrap gap-5">
                 <Link to="/medscribe">
-                  <Button size="lg" className="bg-health-dark hover:bg-health-dark/90 text-white rounded-2xl px-10 py-8 text-lg font-bold shadow-2xl transition-all hover:scale-[1.03] active:translate-y-1 active:shadow-neu-inset">
+                  <Button size="lg" className="bg-health-dark hover:bg-health-dark/90 text-white rounded-2xl px-10 py-8 text-lg font-bold shadow-2xl transition-all hover:scale-[1.03] active:translate-y-1 active:shadow-neu-active">
                     {t('nav.start')} <ChevronRight className="ml-2 h-5 w-5" />
                   </Button>
                 </Link>
                 <a href="#suite">
-                  <Button variant="ghost" size="lg" className="rounded-2xl px-10 py-8 text-lg font-bold shadow-neu-soft border border-white/80 bg-white/40 backdrop-blur-md hover:bg-white/60 transition-all active:shadow-neu-inset active:scale-95">
+                  <Button variant="ghost" size="lg" className="rounded-2xl px-10 py-8 text-lg font-bold shadow-neu-soft border border-white/80 bg-white/40 backdrop-blur-md hover:bg-white/60 transition-all active:shadow-neu-active active:scale-95">
                     {t('nav.products')}
                   </Button>
                 </a>
@@ -96,18 +97,18 @@ export function LandingPage() {
             <motion.div
               initial={{ opacity: 0, scale: 0.85, rotate: 2 }}
               animate={{ opacity: 1, scale: 1, rotate: 0 }}
-              transition={{ duration: 1, ease: "easeOut" }}
+              transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
               className="relative aspect-square md:max-w-xl mx-auto w-full"
             >
               <div className="absolute inset-0 rounded-[4rem] bg-white shadow-neu overflow-hidden p-4 rotate-3 transform-gpu">
                 <div className="h-full w-full rounded-[3.5rem] overflow-hidden grayscale-[0.1] hover:grayscale-0 transition-all duration-1000">
-                  <motion.img 
+                  <motion.img
                     initial={{ scale: 1.1 }}
                     animate={{ scale: 1 }}
                     transition={{ duration: 10, repeat: Infinity, repeatType: "reverse" }}
-                    src={heroImg} 
-                    alt="Healthcare AI Visualization" 
-                    className="h-full w-full object-cover" 
+                    src={heroImg}
+                    alt="Healthcare AI Visualization"
+                    className="h-full w-full object-cover"
                   />
                 </div>
               </div>
@@ -157,8 +158,8 @@ export function LandingPage() {
           </div>
           <div className="space-y-6 max-w-3xl mx-auto">
             <p className="text-sm text-muted-foreground leading-relaxed font-medium">
-              Voither leverages the power of <strong>Claude 3.5 Sonnet</strong>, 
-              <strong> VoyageAI</strong> Embeddings, and <strong>Eleven Labs</strong> Agents 
+              Voither leverages the power of <strong>Claude 3.5 Sonnet</strong>,
+              <strong> VoyageAI</strong> Embeddings, and <strong>Eleven Labs</strong> Agents
               to deliver the world's most reliable AACI engine.
             </p>
             <div className="p-6 rounded-3xl bg-white/40 backdrop-blur-xl border border-white/60 shadow-neu-soft inline-block max-w-lg">

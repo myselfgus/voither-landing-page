@@ -50,6 +50,7 @@ export default {
   			neu: '8px 8px 16px #d1d1d1, -8px -8px 16px #ffffff',
         'neu-inset': 'inset 6px 6px 12px #d1d1d1, inset -6px -6px 12px #ffffff',
         'neu-soft': '4px 4px 8px #e0e0e0, -4px -4px 8px #ffffff',
+        'neu-active': 'inset 4px 4px 8px #b1b1b1, inset -4px -4px 8px #ffffff',
   			soft: '0 2px 15px -3px rgba(0, 0, 0, 0.07), 0 10px 20px -2px rgba(0, 0, 0, 0.04)',
         'glow': '0 0 20px rgba(0, 168, 150, 0.3)',
         'primary': '0 4px 14px 0 rgba(0, 0, 0, 0.05)',
@@ -63,11 +64,16 @@ export default {
           '0%, 100%': { transform: 'translateX(0)' },
           '25%': { transform: 'translateX(-2px)' },
           '75%': { transform: 'translateX(2px)' }
+        },
+        'pulse-soft': {
+          '0%, 100%': { opacity: '1', transform: 'scale(1)' },
+          '50%': { opacity: '0.6', transform: 'scale(0.95)' }
         }
   		},
   		animation: {
   			'wave-expand': 'wave-expand 1s ease-in-out infinite',
-        'shake': 'shake 0.3s ease-in-out infinite'
+        'shake': 'shake 0.3s ease-in-out infinite',
+        'pulse-soft': 'pulse-soft 2s ease-in-out infinite'
   		},
   	}
   },

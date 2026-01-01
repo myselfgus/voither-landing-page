@@ -34,6 +34,7 @@ const resources = {
         level: 'Level',
         pointsEarned: 'Points Earned',
         levelUp: 'Clinical Level Up!',
+        bonus_reason: 'Excellence Bonus',
         titles: {
           intern: 'Medical Intern',
           resident: 'Clinical Resident',
@@ -44,7 +45,7 @@ const resources = {
       },
       partners: { title: 'Our Innovation Network' },
       demos: {
-        medscribe: { 
+        medscribe: {
           title: 'MedScribe Documentation',
           start: 'Start Ambient Scribe',
           stop: 'Stop Intake',
@@ -66,7 +67,8 @@ const resources = {
           ehr: 'Patient EHR Live',
           live: 'Live Ambient Stream',
           history: 'Medical History',
-          status: 'Synthesizing ambient consult data into population health record...'
+          status: 'Synthesizing ambient consult data into population health record...',
+          history_unlocked: 'Medical records retrieved from AACI secure cloud.'
         },
         analytics: {
           title: 'CHM Analytics',
@@ -75,7 +77,8 @@ const resources = {
           export: 'Export Insights',
           efficiency: 'Documentation Time (Minutes)',
           risk: 'Population Risk Distribution',
-          insight: 'Based on documentation efficiency trends, switching to full ambient documentation could recover approximately 14 hours of clinical face-time per week.'
+          insight: 'Based on documentation efficiency trends, switching to full ambient documentation could recover approximately 14 hours of clinical face-time per week.',
+          insights_exported: 'Population health report generated and clinical insights shared.'
         }
       },
       footer: { note: 'Limited AI requests across all user apps.' }
@@ -84,7 +87,7 @@ const resources = {
   pt: {
     translation: {
       seo: {
-        defaultTitle: 'Voither | Inteligência Clínica Ambient-Agentic',
+        defaultTitle: 'Voither | Inteligência Cl��nica Ambient-Agentic',
         defaultDescription: 'Transformando a saúde com o Motor AACI. Documentação ambiental, triagem inteligente e análises preditivas.',
         medscribe: 'Demo MedScribe | Voither Healthcare AI',
         sortio: 'Demo Triagem Sortio | Voither Healthcare AI',
@@ -114,6 +117,7 @@ const resources = {
         level: 'Nível',
         pointsEarned: 'Pontos Ganhos',
         levelUp: 'Aumento de Nível Clínico!',
+        bonus_reason: 'Bônus de Excelência',
         titles: {
           intern: 'Interno Médico',
           resident: 'Residente Clínico',
@@ -124,7 +128,7 @@ const resources = {
       },
       partners: { title: 'Nossa Rede de Inovação' },
       demos: {
-        medscribe: { 
+        medscribe: {
           title: 'Documentação MedScribe',
           start: 'Iniciar Escriba Ambiental',
           stop: 'Parar Captação',
@@ -146,7 +150,8 @@ const resources = {
           ehr: 'Prontuário Eletrônico ao Vivo',
           live: 'Streaming Ambiental Ativo',
           history: 'Histórico Médico',
-          status: 'Sintetizando dados de consulta ambiental em registro de saúde populacional...'
+          status: 'Sintetizando dados de consulta ambiental em registro de saúde populacional...',
+          history_unlocked: 'Registros médicos recuperados da nuvem segura AACI.'
         },
         analytics: {
           title: 'Análise CHM',
@@ -155,7 +160,8 @@ const resources = {
           export: 'Exportar Insights',
           efficiency: 'Tempo de Documentação (Minutos)',
           risk: 'Distribuição de Risco Populacional',
-          insight: 'Com base nas tendências de eficiência de documentação, a mudança para documentação ambiental completa poderia recuperar aproximadamente 14 horas de atendimento clínico por semana.'
+          insight: 'Com base nas tendências de eficiência de documentação, a mudança para documentação ambiental completa poderia recuperar aproximadamente 14 horas de atendimento clínico por semana.',
+          insights_exported: 'Relatório de saúde populacional gerado e insights clínicos compartilhados.'
         }
       },
       footer: { note: 'Limite de requisições de IA aplicado em todas as aplicações de usuários.' }
@@ -163,7 +169,6 @@ const resources = {
   }
 };
 const i18n = i18next.createInstance();
-
 i18n
   .use(initReactI18next)
   .init({
