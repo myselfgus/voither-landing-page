@@ -4,6 +4,7 @@ import { ChevronLeft } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { LanguageToggle } from './LanguageToggle';
 import { DemoProgress } from './DemoProgress';
+import { FloatingChat } from './FloatingChat';
 interface DemoLayoutProps {
   children: React.ReactNode;
   title: string;
@@ -39,6 +40,7 @@ export function DemoLayout({ children, title }: DemoLayoutProps) {
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-12 md:pb-20">
         {children}
       </main>
+      <FloatingChat />
     </div>
   );
 }

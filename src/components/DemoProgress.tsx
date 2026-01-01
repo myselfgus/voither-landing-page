@@ -4,6 +4,7 @@ import { useGamificationStore, getRank } from '@/lib/gamification';
 import { Progress } from '@/components/ui/progress';
 import { Activity, Trophy, Sparkles } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import confetti from 'canvas-confetti';
 export function DemoProgress() {
   const { t } = useTranslation();
   const xp = useGamificationStore(s => s.xp);
@@ -29,6 +30,13 @@ export function DemoProgress() {
   }, [xp, prevXP]);
   useEffect(() => {
     if (level > prevLevel) {
+      // Healthcare themed confetti: teal and white
+      confetti({
+        particleCount: 150,
+        spread: 70,
+        origin: { y: 0.6 },
+        colors: ['#00A896', '#ffffff', '#e0f2f1']
+      });
       setShowLevelUp(true);
       const timer = setTimeout(() => setShowLevelUp(false), 4000);
       setPrevLevel(level);
@@ -65,7 +73,7 @@ export function DemoProgress() {
       </div>
       <AnimatePresence>
         {showLevelUp && (
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, scale: 0.5 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 1.2 }}

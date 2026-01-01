@@ -21,7 +21,6 @@ export function FloatingChat() {
   };
   useEffect(() => {
     if (isOpen) {
-      // Small delay to allow animation to complete
       const timer = setTimeout(scrollToBottom, 300);
       return () => clearTimeout(timer);
     }
@@ -59,14 +58,14 @@ export function FloatingChat() {
     return matches ? Array.from(new Set(matches.map(m => m.slice(1, -1)))) : [];
   };
   return (
-    <div className="fixed bottom-6 right-6 z-[100]">
+    <div className="fixed bottom-6 right-6 z-[90]">
       <AnimatePresence>
         {isOpen && (
           <motion.div
             initial={{ opacity: 0, scale: 0.9, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.9, y: 20 }}
-            className="mb-4 w-[350px] sm:w-[400px] h-[550px] rounded-4xl bg-white/80 backdrop-blur-2xl shadow-neu overflow-hidden flex flex-col border border-white/40"
+            className="mb-4 w-[350px] sm:w-[400px] h-[550px] rounded-4xl bg-white/90 backdrop-blur-xl shadow-neu overflow-hidden flex flex-col border border-white/40"
           >
             <div className="p-6 bg-health-dark text-white flex items-center justify-between">
               <div className="flex items-center gap-3">
@@ -94,15 +93,15 @@ export function FloatingChat() {
                 return (
                   <div key={m.id} className={`flex flex-col ${m.role === 'user' ? 'items-end' : 'items-start'}`}>
                     <div className={`max-w-[85%] p-4 rounded-3xl shadow-neu-soft text-sm leading-relaxed ${
-                      m.role === 'user' ? 'bg-health-teal text-white' : 'bg-white/90 text-health-dark border border-white/50'
+                      m.role === 'user' ? 'bg-health-teal text-white' : 'bg-white/95 text-health-dark border border-white/50'
                     }`}>
                       {m.content}
                     </div>
                     {citations.length > 0 && (
                       <div className="flex flex-wrap gap-1.5 mt-2">
                         {citations.map((cite, i) => (
-                          <motion.div 
-                            key={i} 
+                          <motion.div
+                            key={i}
                             whileHover={{ scale: 1.05 }}
                             className="flex items-center gap-1 px-2.5 py-1 rounded-full bg-health-teal/10 text-[9px] font-bold text-health-teal cursor-help"
                           >
@@ -122,9 +121,7 @@ export function FloatingChat() {
                         <div className="h-2 w-2 rounded-full bg-health-teal animate-pulse" />
                         <span className="text-[10px] font-bold uppercase tracking-tighter text-muted-foreground">AutoRAG Synthesizing...</span>
                       </div>
-                      <motion.div
-                        className="h-1 bg-health-teal/20 rounded-full overflow-hidden w-24"
-                      >
+                      <motion.div className="h-1 bg-health-teal/20 rounded-full overflow-hidden w-24">
                         <motion.div
                           animate={{ x: [-48, 96] }}
                           transition={{ repeat: Infinity, duration: 1.5 }}

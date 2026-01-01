@@ -38,7 +38,7 @@ export function Navbar() {
             <div className="flex items-center gap-10 text-xs font-black uppercase tracking-[0.2em] text-muted-foreground">
               <a href="#engine" className="hover:text-health-teal transition-colors">{t('nav.features')}</a>
               <a href="#suite" className="hover:text-health-teal transition-colors">{t('nav.products')}</a>
-              <a href="#contact" className="hover:text-health-teal transition-colors">Contact</a>
+              <a href="#contact" className="hover:text-health-teal transition-colors">{t('nav.contact')}</a>
             </div>
             <div className="h-6 w-px bg-muted/20" />
             <div className="flex items-center gap-5">
@@ -87,14 +87,14 @@ export function Navbar() {
                 onClick={closeMenu}
                 className="text-2xl font-display font-bold text-health-dark hover:text-health-teal transition-colors"
               >
-                Contact
+                {t('nav.contact')}
               </a>
               <div className="h-px w-full bg-muted/10" />
               <div className="flex flex-col gap-6">
                 <div className="flex justify-center">
                   <LanguageToggle />
                 </div>
-                <Button 
+                <Button
                   onClick={closeMenu}
                   className="bg-health-teal text-white rounded-2xl py-8 text-xl font-bold shadow-lg shadow-health-teal/20"
                 >

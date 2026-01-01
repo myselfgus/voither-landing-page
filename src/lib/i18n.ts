@@ -11,7 +11,7 @@ const resources = {
         clinic: 'CloudClinic Platform Demo | Voither Healthcare AI',
         analytics: 'CHM Analytics Insights | Voither Healthcare AI'
       },
-      nav: { start: 'Get Started', features: 'Features', products: 'Suite' },
+      nav: { start: 'Get Started', features: 'Features', products: 'Suite', contact: 'Contact' },
       hero: { title: 'Ambient Intelligence for Modern Healthcare', subtitle: 'AACI Engine: Generating documentation, diagnoses, and analytics in real-time.' },
       stats: { patient: '98% Patient Satisfaction', clinical: '60% Less Documentation Time', triage: 'Real-time Triage', growth: '40% Efficiency Increase' },
       engine: { title: 'The AACI Engine', desc: 'Real-time ambient documentation and agentic clinical logic.' },
@@ -87,14 +87,14 @@ const resources = {
   pt: {
     translation: {
       seo: {
-        defaultTitle: 'Voither | Inteligência Cl��nica Ambient-Agentic',
+        defaultTitle: 'Voither | Inteligência Clínica Ambient-Agentic',
         defaultDescription: 'Transformando a saúde com o Motor AACI. Documentação ambiental, triagem inteligente e análises preditivas.',
         medscribe: 'Demo MedScribe | Voither Healthcare AI',
         sortio: 'Demo Triagem Sortio | Voither Healthcare AI',
         clinic: 'Demo Plataforma CloudClinic | Voither Healthcare AI',
         analytics: 'Demo Insights CHM Analytics | Voither Healthcare AI'
       },
-      nav: { start: 'Começar', features: 'Funcionalidades', products: 'Produtos' },
+      nav: { start: 'Começar', features: 'Funcionalidades', products: 'Produtos', contact: 'Contato' },
       hero: { title: 'Inteligência Ambiental para Saúde Moderna', subtitle: 'Motor AACI: Gerando documentação, diagnósticos e análises em tempo real.' },
       stats: { patient: '98% Satisfação do Paciente', clinical: '60% Menos Tempo de Escrita', triage: 'Triagem em Tempo Real', growth: '40% Aumento de Eficiência' },
       engine: { title: 'O Motor AACI', desc: 'Documentação ambiental e lógica clínica agentica em tempo real.' },

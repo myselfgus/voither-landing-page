@@ -13,6 +13,7 @@ import { I18nextProvider } from 'react-i18next';
 import i18n from '@/lib/i18n';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { RouteErrorBoundary } from '@/components/RouteErrorBoundary';
+import { Toaster } from '@/components/ui/sonner';
 import '@/index.css'
 import { LandingPage } from '@/pages/LandingPage'
 import { MedScribeDemo } from '@/pages/MedScribeDemo'
@@ -54,6 +55,7 @@ createRoot(document.getElementById('root')!).render(
         <QueryClientProvider client={queryClient}>
           <ErrorBoundary>
             <RouterProvider router={router} />
+            <Toaster richColors closeButton />
           </ErrorBoundary>
         </QueryClientProvider>
       </HelmetProvider>
