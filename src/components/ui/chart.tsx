@@ -77,8 +77,8 @@ const ChartTooltipContent = React.forwardRef<
       labelKey?: string
     }
 >(
-  (
-    {
+  (props, ref) => {
+    const {
       active,
       payload,
       className,
@@ -92,9 +92,7 @@ const ChartTooltipContent = React.forwardRef<
       color,
       nameKey,
       labelKey,
-    },
-    ref
-  ) => {
+    } = props as any // Casting to any to handle Recharts internal prop injection safely
     const { config } = useChart()
     const tooltipLabel = React.useMemo(() => {
       if (hideLabel || !active || !payload?.length) {
@@ -142,10 +140,10 @@ const ChartTooltipContent = React.forwardRef<
       >
         {!nestLabel ? tooltipLabel : null}
         <div className="grid gap-1.5">
-          {payload.map((item, index) => {
+          {payload.map((item: any, index: number) => {
             const key = `${nameKey || item.name || item.dataKey || "value"}`
             const itemConfig = config[key]
-            const indicatorColor = color || (item.payload as any)?.fill || item.color
+            const indicatorColor = color || item.payload?.fill || item.color
             return (
               <div
                 key={item.dataKey || index}
@@ -167,7 +165,7 @@ const ChartTooltipContent = React.forwardRef<
                             "w-1": indicator === "line",
                             "w-0 border-l-2 border-dashed bg-transparent":
                               indicator === "dashed",
-                            "mt-0.5": nestLabel && indicator !== "dot",
+                            "mt-0.5": nestLabel && indicator !== ("dot" as any),
                           }
                         )}
                         style={
