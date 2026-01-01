@@ -9,6 +9,8 @@ import {
 } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { HelmetProvider } from 'react-helmet-async';
+import { I18nextProvider } from 'react-i18next';
+import i18n from '@/lib/i18n';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { RouteErrorBoundary } from '@/components/RouteErrorBoundary';
 import '@/index.css'
@@ -47,12 +49,14 @@ const router = createBrowserRouter([
 ]);
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <QueryClientProvider client={queryClient}>
+    <I18nextProvider i18n={i18n}>
       <HelmetProvider>
-        <ErrorBoundary>
-          <RouterProvider router={router} />
-        </ErrorBoundary>
+        <QueryClientProvider client={queryClient}>
+          <ErrorBoundary>
+            <RouterProvider router={router} />
+          </ErrorBoundary>
+        </QueryClientProvider>
       </HelmetProvider>
-    </QueryClientProvider>
+    </I18nextProvider>
   </StrictMode>,
 )
