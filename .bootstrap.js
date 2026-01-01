@@ -84,7 +84,7 @@ function runSetupCommands() {
     "bun add react-helmet-async@^2.0.5",
     "bun add react-helmet-async",
     "bun add zustand",
-    "bun add canvas-confetti"
+    "bun add canvas-confetti @types/canvas-confetti"
 ];
     
     if (commands.length === 0) {
